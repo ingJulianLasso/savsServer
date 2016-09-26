@@ -2,19 +2,14 @@
 
 // cabecera para json
 header('Content-Type: application/json');
+require 'coneccion.php';
 
-//$params = json_decode(file_get_contents('php://input'));
-//print_r($params);
-//exit();
-$email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+$user = filter_input(INPUT_POST, 'user');
 $password = filter_input(INPUT_POST, 'password');
-$rememberme = filter_input(INPUT_POST, 'rememberme', FILTER_VALIDATE_BOOLEAN);
-// VALIDACIONES
 
-$e = 'julian@gmail.com';
-$p = '123';
+$conn = conectar();
 
-if ($email == $e and $password == $p) {
+if (validarUsuario($conn, $user, $password) === true) {
   $rsp = array(
       'code' => '200'
   );
